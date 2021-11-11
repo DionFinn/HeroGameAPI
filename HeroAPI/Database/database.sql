@@ -30,6 +30,7 @@ create table Villian(
 
 create table Game(
     GameID int,
+    Winner Nvarchar(100),
     Primary Key (GameID)
 )
 
@@ -58,8 +59,8 @@ insert into Villian (VillianID, VillianName, AttackPoints) values
 (2, 'AmEvil', 5),
 (1, 'Agam', 1);
 
-insert into Game (GameID) values 
-(1);
+insert into Game (GameID, Winner) values 
+(1, "jimmy");
 
 insert into TurnTaken (TurnNo, HeroID, VillianID, GameID, DamageDelt) values
 (1, 3, 4, 1, 0)
@@ -202,12 +203,13 @@ drop procedure GamePost
 
 go 
 create procedure GamePost
- @postID int
+ @postID int,
+ @postWinner NVARCHAR(100)
 as 
 begin 
     begin try 
-    insert into Game (GameID)
-    values (@postID)
+    insert into Game (GameID, Winner)
+    values (@postID, @postWinner)
     end try 
 begin catch 
 end catch 
